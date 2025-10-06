@@ -1,0 +1,187 @@
+<div class="employee-container">
+  <mat-toolbar color="primary">
+    <span *ngIf="userRole === 'Admin'" mat-button routerLink="/admin/dashboard">Dashboard</span>
+    <span *ngIf="userRole === 'Manager'" mat-button routerLink="/manager/dashboard">Dashboard</span>
+    <span class="spacer"></span>
+    
+    <!-- Show dashboard link based on role -->
+    <button *ngIf="userRole === 'Admin'" mat-button routerLink="/admin/dashboard">
+      Admin Dashboard
+    </button>
+    <button *ngIf="userRole === 'Manager'" mat-button routerLink="/manager/dashboard">
+      Manager Dashboard
+    </button>
+    <button *ngIf="userRole === 'User'" mat-button routerLink="/user/dashboard">
+      My Dashboard
+    </button>
+    
+    <button mat-button (click)="logout()">Logout</button>
+  </mat-toolbar>
+
+  <div class="content-container">
+    <div class="header">
+      <h2>
+        <span *ngIf="userRole === 'Admin'">Employee Management</span>
+        <span *ngIf="userRole === 'Manager'">Team Management</span>
+        <span *ngIf="userRole === 'User'">Employee Directory</span>
+      </h2>
+      
+      <!-- Only show Add Employee button for Admin and Manager -->
+      <button *ngIf="canAdd" mat-raised-button color="primary" (click)="addEmployee()">
+        <mat-icon>add</mat-icon> Add Employee
+      </button>
+    </div>
+
+    <!-- Information message for User role -->
+    <div *ngIf="userRole === 'User'" class="info-message">
+      <mat-card class="info-card">
+        <mat-card-content>
+          <div class="info-content">
+            <mat-icon>info</mat-icon>
+            <span>You have read-only access to the employee directory.</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="table-wrapper">
+      <table mat-table [dataSource]="employees" class="employee-table mat-elevation-z8">
+        
+        <!-- Employee ID Column -->
+        <ng-container matColumnDef="employeeCode">
+          <th mat-header-cell *matHeaderCellDef class="id-column"> ID </th>
+          <td mat-cell *matCellDef="let employee" class="id-cell"> 
+            <div class="employee-id">
+              {{employee.employeeCode || 'N/A'}}
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Name & Position Column -->
+        <!-- In your employee list table, update the name column to be clickable -->
+<ng-container matColumnDef="name">
+  <th mat-header-cell *matHeaderCellDef class="name-column"> Employee </th>
+  <td mat-cell *matCellDef="let employee" class="name-cell">
+    <div class="employee-name clickable" (click)="viewEmployeeDetails(employee)">
+      <strong>{{employee.firstName}} {{employee.lastName}}</strong>
+    </div>
+    <div class="employee-position">
+      {{employee.position || 'No position'}}
+    </div>
+  </td>
+</ng-container>
+
+        <!-- Contact Column - WIDER COLUMN -->
+        <ng-container matColumnDef="contact">
+          <th mat-header-cell *matHeaderCellDef class="contact-column"> Contact Information </th>
+          <td mat-cell *matCellDef="let employee" class="contact-cell">
+            <div class="contact-info">
+              <!-- Email -->
+              <div class="contact-item">
+                <div class="employee-name clickable" (click)="viewEmployeeDetails(employee)">
+                <mat-icon class="contact-icon">email</mat-icon>
+                <span class="contact-text email-text">{{employee.email || 'No email'}}</span></div>
+              </div>
+              
+              <!-- Phone -->
+              <div class="contact-item" *ngIf="employee.phone">
+                <mat-icon class="contact-icon">phone</mat-icon>
+                <span class="contact-text">{{employee.phone}}</span>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Department Column -->
+        <ng-container matColumnDef="department">
+          <th mat-header-cell *matHeaderCellDef class="dept-column"> Department </th>
+          <td mat-cell *matCellDef="let employee" class="dept-cell">
+            <div class="dept-info">
+              <div class="department-name">
+                {{employee.department || 'Not assigned'}}
+              </div>
+              <div class="location" *ngIf="employee.location">
+                <mat-icon class="small-icon">location_on</mat-icon>
+                {{employee.location}}
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Employment Column -->
+        <ng-container matColumnDef="employment">
+          <th mat-header-cell *matHeaderCellDef class="employment-column"> Employment </th>
+          <td mat-cell *matCellDef="let employee" class="employment-cell">
+            <div class="employment-info">
+              <div class="hire-date" *ngIf="employee.hireDate">
+                {{employee.hireDate | date:'MMM yyyy'}}
+              </div>
+              <div class="employment-type" *ngIf="employee.employmentType">
+                {{employee.employmentType}}
+              </div>
+              <div class="status-badge" [class]="(employee.status || 'active').toLowerCase()">
+                {{employee.status || 'Active'}}
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Salary Column -->
+        <ng-container matColumnDef="salary">
+          <th mat-header-cell *matHeaderCellDef class="salary-column"> Salary </th>
+          <td mat-cell *matCellDef="let employee" class="salary-cell">
+            <div *ngIf="canViewSalary && employee.salary" class="salary-visible">
+              <div class="salary-amount">${{employee.salary | number}}</div>
+              <div class="salary-type">{{employee.salaryType || 'Annual'}}</div>
+            </div>
+            <div *ngIf="!canViewSalary || !employee.salary" class="salary-hidden">
+              <mat-icon>lock</mat-icon>
+              <span>Confidential</span>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="actions-column"> Actions </th>
+          <td mat-cell *matCellDef="let employee" class="actions-cell">
+            <div class="action-buttons">
+              <!-- View Button for all roles -->
+              
+              <!-- Edit button for Admin and Manager -->
+              <button mat-icon-button color="primary" 
+                      *ngIf="canEdit" 
+                      (click)="editEmployee(employee)"
+                      matTooltip="Edit Employee"
+                      class="action-btn">
+                <mat-icon>edit</mat-icon>
+              </button>
+              
+              <!-- Delete button for Admin only -->
+              <button mat-icon-button color="warn" 
+                      *ngIf="canDelete" 
+                      (click)="deleteEmployee(employee.id)"
+                      matTooltip="Delete Employee"
+                      class="action-btn">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns" class="header-row"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="data-row"></tr>
+      </table>
+
+      <!-- Empty state -->
+      <div *ngIf="employees.length === 0" class="empty-state">
+        <mat-icon>group</mat-icon>
+        <h3>No Employees Found</h3>
+        <p>There are no employees to display at the moment.</p>
+        <button *ngIf="canAdd" mat-raised-button color="primary" (click)="addEmployee()">
+          <mat-icon>add</mat-icon> Add First Employee
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

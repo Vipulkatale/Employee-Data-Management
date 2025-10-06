@@ -1,0 +1,234 @@
+<div class="employee-details-container">
+  <mat-toolbar color="primary">
+    <button mat-icon-button (click)="goBack()" title="Back to Employee List">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>Employee Details</span>
+    <span class="spacer"></span>
+    <button *ngIf="canEdit" mat-button (click)="editEmployee()">
+      <mat-icon>edit</mat-icon>
+      Edit
+    </button>
+    <button mat-button (click)="logout()">Logout</button>
+  </mat-toolbar>
+
+  <div class="details-content" *ngIf="employee">
+    <!-- Profile Header -->
+    <mat-card class="profile-header-card">
+      <mat-card-content>
+        <div class="profile-header">
+          <div class="avatar-section">
+            <div class="avatar">
+              {{ employee.firstName?.charAt(0) }}{{ employee.lastName?.charAt(0) }}
+            </div>
+          </div>
+          <div class="profile-info">
+            <h1>{{ employee.firstName }} {{ employee.lastName }}</h1>
+            <p class="position">{{ employee.position }}</p>
+            <p class="department">{{ employee.department }} Department</p>
+            <p class="employee-code">Employee ID: {{ employee.employeeCode }}</p>
+            <div class="status-badge" [class]="employee.status?.toLowerCase() || 'active'">
+              {{ employee.status || 'Active' }}
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Main Details Grid -->
+    <div class="details-grid">
+      <!-- Personal Information -->
+      <mat-card class="detail-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>person</mat-icon>
+            Personal Information
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="detail-grid">
+            <div class="detail-item">
+              <span class="label">Employee Code</span>
+              <span class="value">{{ employee.employeeCode }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Full Name</span>
+              <span class="value">{{ employee.firstName }} {{ employee.lastName }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Email</span>
+              <span class="value email">{{ employee.email }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Phone</span>
+              <span class="value">{{ employee.phone || 'Not provided' }}</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Employment Information -->
+      <mat-card class="detail-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>business_center</mat-icon>
+            Employment Details
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="detail-grid">
+            <div class="detail-item">
+              <span class="label">Position</span>
+              <span class="value">{{ employee.position }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Department</span>
+              <span class="value">{{ employee.department }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Employment Type</span>
+              <span class="value">{{ employee.employmentType || 'Full-time' }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Hire Date</span>
+              <span class="value">{{ employee.hireDate | date:'longDate' }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Status</span>
+              <span class="value status-badge" [class]="employee.status?.toLowerCase() || 'active'">
+                {{ employee.status || 'Active' }}
+              </span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Compensation -->
+      <mat-card class="detail-card" *ngIf="canViewSalary">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>attach_money</mat-icon>
+            Compensation
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="detail-grid">
+            <div class="detail-item">
+              <span class="label">Salary</span>
+              <span class="value salary">${{ employee.salary | number }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Salary Type</span>
+              <span class="value">{{ employee.salaryType || 'Annual' }}</span>
+            </div>
+            <div class="detail-item" *ngIf="employee.payFrequency">
+              <span class="label">Pay Frequency</span>
+              <span class="value">{{ employee.payFrequency }}</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Additional Information -->
+      <mat-card class="detail-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>info</mat-icon>
+            Additional Information
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="detail-grid">
+            <div class="detail-item">
+              <span class="label">Location</span>
+              <span class="value">{{ employee.location || 'Main Office' }}</span>
+            </div>
+            <div class="detail-item" *ngIf="employee.manager">
+              <span class="label">Manager</span>
+              <span class="value">{{ employee.manager }}</span>
+            </div>
+            <div class="detail-item" *ngIf="employee.workSchedule">
+              <span class="label">Work Schedule</span>
+              <span class="value">{{ employee.workSchedule }}</span>
+            </div>
+            <div class="detail-item" *ngIf="employee.skills">
+              <span class="label">Skills</span>
+              <span class="value">{{ employee.skills }}</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Contact Information -->
+      <mat-card class="detail-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>contact_mail</mat-icon>
+            Contact Information
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="contact-details">
+            <div class="contact-item">
+              <mat-icon class="contact-icon">email</mat-icon>
+              <div class="contact-info">
+                <span class="label">Email Address</span>
+                <span class="value">{{ employee.email }}</span>
+              </div>
+            </div>
+            
+            <div class="contact-item" *ngIf="employee.phone">
+              <mat-icon class="contact-icon">phone</mat-icon>
+              <div class="contact-info">
+                <span class="label">Phone Number</span>
+                <span class="value">{{ employee.phone }}</span>
+              </div>
+            </div>
+
+            <div class="contact-item" *ngIf="employee.mobile">
+              <mat-icon class="contact-icon">smartphone</mat-icon>
+              <div class="contact-info">
+                <span class="label">Mobile Number</span>
+                <span class="value">{{ employee.mobile }}</span>
+              </div>
+            </div>
+
+            <div class="contact-item" *ngIf="employee.extension">
+              <mat-icon class="contact-icon">dialpad</mat-icon>
+              <div class="contact-info">
+                <span class="label">Extension</span>
+                <span class="value">{{ employee.extension }}</span>
+              </div>
+            </div>
+
+            <div class="contact-item" *ngIf="employee.deskLocation">
+              <mat-icon class="contact-icon">place</mat-icon>
+              <div class="contact-info">
+                <span class="label">Desk Location</span>
+                <span class="value">{{ employee.deskLocation }}</span>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons" *ngIf="canEdit || canDelete">
+      <button mat-raised-button color="primary" (click)="editEmployee()" *ngIf="canEdit">
+        <mat-icon>edit</mat-icon>
+        Edit Employee
+      </button>
+      <button mat-raised-button color="warn" (click)="deleteEmployee()" *ngIf="canDelete">
+        <mat-icon>delete</mat-icon>
+        Delete Employee
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="!employee" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading employee details...</p>
+  </div>
+</div>

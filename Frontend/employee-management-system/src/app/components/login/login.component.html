@@ -1,0 +1,67 @@
+<div class="login-container">
+  <div class="login-wrapper">
+    <mat-card class="login-card">
+      <mat-card-header class="login-header">
+        <div class="logo-section">
+          <mat-icon class="logo-icon">business_center</mat-icon>
+          <mat-card-title>Employee Management System</mat-card-title>
+        </div>
+        <mat-card-subtitle>Please login to continue</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content class="login-content">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="username" required placeholder="Enter your username">
+            <mat-icon matSuffix>person</mat-icon>
+            <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+              Username is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" required placeholder="Enter your password">
+            <mat-icon matSuffix>lock</mat-icon>
+            <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+              Password is required
+            </mat-error>
+          </mat-form-field>
+
+          <div *ngIf="errorMessage" class="error-message">
+            <mat-icon>error_outline</mat-icon>
+            <span>{{ errorMessage }}</span>
+          </div>
+
+          <button mat-raised-button 
+                  color="primary" 
+                  type="submit" 
+                  class="full-width login-btn"
+                  [disabled]="!loginForm.valid || isLoading">
+            <mat-spinner *ngIf="isLoading" diameter="20" class="btn-spinner"></mat-spinner>
+            <span *ngIf="!isLoading">LOGIN</span>
+            <span *ngIf="isLoading">LOGGING IN...</span>
+          </button>
+        </form>
+
+        <!-- Register Link without divider -->
+        <div class="register-section">
+          <div class="separator">
+            <span class="separator-text">or</span>
+          </div>
+          <div class="register-link">
+            <span class="register-text">Don't have an account?</span>
+            <button mat-stroked-button 
+                    color="primary" 
+                    routerLink="/register"
+                    class="register-btn">
+              <mat-icon>person_add</mat-icon>
+              Create Account
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

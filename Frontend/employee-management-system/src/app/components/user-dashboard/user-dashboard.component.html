@@ -1,0 +1,52 @@
+<div class="dashboard-container">
+  <mat-toolbar color="primary">
+    <span>Employee Portal</span>
+    <span class="spacer"></span>
+    <button mat-button routerLink="/user/employees">View Employees</button>
+    <button mat-button (click)="logout()">Logout</button>
+  </mat-toolbar>
+
+  <div class="dashboard-content">
+    <h1>Welcome, User!</h1>
+    <p>You have access to view the employee directory in read-only mode.</p>
+    
+    <div class="action-cards">
+      <mat-card class="action-card" routerLink="/user/employees">
+        <mat-card-header>
+          <mat-card-title>View Employees</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Browse all employees in the company</p>
+          <div class="card-icon">
+            <mat-icon>groups</mat-icon>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Make My Profile card clickable -->
+      <mat-card class="action-card" routerLink="/user/profile">
+        <mat-card-header>
+          <mat-card-title>My Profile</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>View your personal information</p>
+          <div class="card-icon">
+            <mat-icon>person</mat-icon>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="action-card">
+        <mat-card-header>
+          <mat-card-title>Company Directory</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Access employee contact information</p>
+          <div class="card-icon">
+            <mat-icon>contacts</mat-icon>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

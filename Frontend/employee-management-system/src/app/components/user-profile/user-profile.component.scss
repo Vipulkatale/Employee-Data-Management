@@ -1,0 +1,189 @@
+.profile-container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.profile-content {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.loading-container p {
+  margin-top: 20px;
+  color: #666;
+  font-size: 16px;
+}
+
+.profile-header-card {
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 0;
+}
+
+.avatar-section {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: bold;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.profile-info h1 {
+  margin: 0 0 8px 0;
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.position {
+  margin: 0 0 4px 0;
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+.department {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+.employee-code {
+  margin: 8px 0 0 0;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.info-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 20px;
+}
+
+.info-card {
+  height: fit-content;
+}
+
+.info-card mat-card-header {
+  margin-bottom: 16px;
+}
+
+.info-card mat-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  color: #3f51b5;
+}
+
+.info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-item strong {
+  color: #333;
+  min-width: 140px;
+}
+
+.info-item span {
+  color: #666;
+  text-align: right;
+  flex: 1;
+}
+
+.update-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 12px;
+  background-color: #fff3e0;
+  border-radius: 4px;
+  border-left: 4px solid #ff9800;
+}
+
+.update-notice mat-icon {
+  color: #ff9800;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.update-notice span {
+  font-size: 14px;
+  color: #e65100;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .profile-content {
+    padding: 10px;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .info-sections {
+    grid-template-columns: 1fr;
+  }
+
+  .info-item {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .info-item strong,
+  .info-item span {
+    text-align: left;
+  }
+
+  .info-item span {
+    color: #333;
+  }
+}

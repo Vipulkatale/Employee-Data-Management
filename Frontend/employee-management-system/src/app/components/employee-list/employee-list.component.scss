@@ -1,0 +1,504 @@
+.employee-container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.content-container {
+  padding: 20px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 0 20px;
+}
+
+.table-wrapper {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 0 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.employee-table {
+  width: 100%;
+  background: white;
+}
+
+// Column Width Definitions - CONTACT COLUMN GETS MAXIMUM SPACE
+.id-column {
+  width: 80px;
+  min-width: 80px;
+  max-width: 80px;
+}
+
+.name-column {
+  width: 180px;
+  min-width: 180px;
+  max-width: 180px;
+}
+
+.contact-column {
+  width: 350px;  // MAXIMUM SPACE FOR CONTACT
+  min-width: 350px;
+  max-width: 350px;
+}
+
+.dept-column {
+  width: 150px;
+  min-width: 150px;
+  max-width: 150px;
+}
+
+.employment-column {
+  width: 140px;
+  min-width: 140px;
+  max-width: 140px;
+}
+
+.salary-column {
+  width: 120px;
+  min-width: 120px;
+  max-width: 120px;
+}
+
+.actions-column {
+  width: 140px;
+  min-width: 140px;
+  max-width: 140px;
+}
+
+// Cell Styling
+.id-cell {
+  text-align: center;
+  
+  .employee-id {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    color: #666;
+    background: #f8f9fa;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+}
+
+.name-cell {
+  .employee-name {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+  }
+  
+  .employee-position {
+    font-size: 12px;
+    color: #666;
+    font-style: italic;
+  }
+}
+
+// CONTACT CELL - MAXIMUM SPACE UTILIZATION
+.contact-cell {
+  padding: 8px 12px !important;
+  
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 8px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+    
+    &:hover {
+      background: #e9ecef;
+    }
+  }
+  
+  .contact-icon {
+    color: #667eea;
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+  
+  .contact-text {
+    font-size: 13px;
+    color: #333;
+    line-height: 1.3;
+    word-break: break-word;
+    flex: 1;
+  }
+  
+  .email-text {
+    color: #1976d2;
+    font-weight: 500;
+  }
+}
+
+.dept-cell {
+  .dept-info {
+    .department-name {
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 4px;
+    }
+    
+    .location {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: #666;
+    }
+  }
+}
+
+.employment-cell {
+  .employment-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    
+    .hire-date, .employment-type {
+      font-size: 12px;
+      color: #666;
+    }
+    
+    .status-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-align: center;
+      width: fit-content;
+      
+      &.active {
+        background-color: #e8f5e8;
+        color: #2e7d32;
+      }
+      
+      &.inactive {
+        background-color: #ffebee;
+        color: #c62828;
+      }
+      
+      &.pending {
+        background-color: #fff3e0;
+        color: #ef6c00;
+      }
+    }
+  }
+}
+
+.salary-cell {
+  .salary-visible {
+    text-align: center;
+    
+    .salary-amount {
+      font-weight: bold;
+      color: #2e7d32;
+      font-size: 13px;
+    }
+    
+    .salary-type {
+      font-size: 10px;
+      color: #666;
+      text-transform: uppercase;
+    }
+  }
+  
+  .salary-hidden {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: #999;
+    font-style: italic;
+    font-size: 12px;
+    
+    mat-icon {
+      font-size: 14px;
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
+.actions-cell {
+  .action-buttons {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+  }
+  
+  .action-btn {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    
+    mat-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+// Table Row Styling
+.header-row {
+  background: #f5f5f5;
+  
+  th {
+    font-weight: 600;
+    color: #333;
+    font-size: 13px;
+    border-bottom: 2px solid #e0e0e0;
+  }
+}
+
+.data-row {
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background: #f8f9fa;
+  }
+  
+  &:not(:last-child) {
+    border-bottom: 1px solid #f0f0f0;
+  }
+}
+
+// Small icon class
+.small-icon {
+  font-size: 14px;
+  width: 14px;
+  height: 14px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.info-message {
+  margin: 0 20px 20px 20px;
+}
+
+.info-card {
+  background-color: #e3f2fd;
+  border-left: 4px solid #2196f3;
+}
+
+.info-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.info-content mat-icon {
+  color: #2196f3;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+  
+  mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: #ccc;
+    margin-bottom: 16px;
+  }
+  
+  h3 {
+    margin: 0 0 8px 0;
+    color: #333;
+  }
+  
+  p {
+    margin: 0 0 20px 0;
+  }
+}
+
+// Responsive design
+@media (max-width: 1200px) {
+  .table-wrapper {
+    overflow-x: auto;
+  }
+  
+  .employee-table {
+    min-width: 1100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .content-container {
+    padding: 10px;
+  }
+  
+  .header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+    padding: 0 10px;
+  }
+  
+  .table-wrapper {
+    margin: 0 10px;
+  }
+  
+  .contact-column {
+    width: 300px;
+    min-width: 300px;
+  }
+}
+
+.clickable {
+  cursor: pointer;
+  color: #1976d2;
+  transition: color 0.2s;
+  
+  &:hover {
+    color: #0d47a1;
+    text-decoration: underline;
+  }
+}
+
+// Search and Filter Section
+.search-filter-section {
+  margin: 0 20px 20px 20px;
+}
+
+.search-filter-card {
+  border-radius: 8px;
+}
+
+.search-filter-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr auto;
+  gap: 16px;
+  align-items: start;
+}
+
+.search-field {
+  width: 100%;
+}
+
+.filter-field {
+  width: 100%;
+}
+
+.clear-filters-btn {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+// Active Filters
+.active-filters {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.active-filters-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: #666;
+  font-weight: 500;
+}
+
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+// Results Info
+.results-info {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.results-count {
+  font-weight: 500;
+  color: #333;
+}
+
+.filtered-info {
+  font-size: 12px;
+  color: #666;
+}
+
+// Empty State Updates
+.empty-icon {
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+  color: #ccc;
+  margin-bottom: 16px;
+}
+
+// Responsive Design for Search Filters
+@media (max-width: 1200px) {
+  .search-filter-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-filter-section {
+    margin: 0 10px 16px 10px;
+  }
+
+  .search-filter-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .clear-filters-btn {
+    height: 48px;
+  }
+
+  .filter-chips {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+// Clickable name styling
+.clickable {
+  cursor: pointer;
+  color: #1976d2;
+  transition: color 0.2s;
+  
+  &:hover {
+    color: #0d47a1;
+    text-decoration: underline;
+  }
+}

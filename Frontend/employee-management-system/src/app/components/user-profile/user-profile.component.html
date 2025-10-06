@@ -1,0 +1,151 @@
+<div class="profile-container">
+  <mat-toolbar color="primary">
+    <button mat-icon-button (click)="goBack()" title="Back to Dashboard">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>My Profile</span>
+    <span class="spacer"></span>
+    <button mat-button (click)="logout()">Logout</button>
+  </mat-toolbar>
+
+  <div class="profile-content">
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading-container">
+      <mat-spinner></mat-spinner>
+      <p>Loading your profile...</p>
+    </div>
+
+    <!-- Profile Content -->
+    <div *ngIf="!isLoading" class="profile-card-container">
+      <!-- Profile Header -->
+      <mat-card class="profile-header-card">
+        <mat-card-content>
+          <div class="profile-header">
+            <div class="avatar-section">
+              <div class="avatar">
+                {{ userProfile.firstName?.charAt(0) }}{{ userProfile.lastName?.charAt(0) }}
+              </div>
+            </div>
+            <div class="profile-info">
+              <h1>{{ userProfile.firstName }} {{ userProfile.lastName }}</h1>
+              <p class="position">{{ userProfile.position }}</p>
+              <p class="department">{{ userProfile.department }} Department</p>
+              <p class="employee-code">Employee ID: {{ userProfile.employeeCode }}</p>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Personal Information -->
+      <div class="info-sections">
+        <!-- Contact Information -->
+        <mat-card class="info-card">
+          <mat-card-header>
+            <mat-card-title>
+              <mat-icon>contact_mail</mat-icon>
+              Contact Information
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="info-grid">
+              <div class="info-item">
+                <strong>Email:</strong>
+                <span>{{ userProfile.email }}</span>
+              </div>
+              <div class="info-item">
+                <strong>Phone:</strong>
+                <span>{{ userProfile.phone || 'Not provided' }}</span>
+              </div>
+              <div class="info-item">
+                <strong>Address:</strong>
+                <span>{{ userProfile.address || 'Not provided' }}</span>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Employment Details -->
+        <mat-card class="info-card">
+          <mat-card-header>
+            <mat-card-title>
+              <mat-icon>business_center</mat-icon>
+              Employment Details
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="info-grid">
+              <div class="info-item">
+                <strong>Position:</strong>
+                <span>{{ userProfile.position }}</span>
+              </div>
+              <div class="info-item">
+                <strong>Department:</strong>
+                <span>{{ userProfile.department }}</span>
+              </div>
+              <div class="info-item">
+                <strong>Employee Code:</strong>
+                <span>{{ userProfile.employeeCode }}</span>
+              </div>
+              <div class="info-item">
+                <strong>Hire Date:</strong>
+                <span>{{ userProfile.hireDate | date:'longDate' }}</span>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Compensation (Optional - based on your policy) -->
+        <mat-card class="info-card" *ngIf="userProfile.salary">
+          <mat-card-header>
+            <mat-card-title>
+              <mat-icon>attach_money</mat-icon>
+              Compensation
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="info-grid">
+              <div class="info-item">
+                <strong>Salary:</strong>
+                <span>${{ userProfile.salary | number }}</span>
+              </div>
+              <div class="info-item">
+                <strong>Pay Frequency:</strong>
+                <span>Monthly</span>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Emergency Contact (Example of additional info) -->
+        <mat-card class="info-card">
+          <mat-card-header>
+            <mat-card-title>
+              <mat-icon>emergency</mat-icon>
+              Emergency Contact
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="info-grid">
+              <div class="info-item">
+                <strong>Contact Person:</strong>
+                <span>Not provided</span>
+              </div>
+              <div class="info-item">
+                <strong>Relationship:</strong>
+                <span>-</span>
+              </div>
+              <div class="info-item">
+                <strong>Emergency Phone:</strong>
+                <span>-</span>
+              </div>
+            </div>
+            <div class="update-notice">
+              <mat-icon>info</mat-icon>
+              <span>Please contact HR to update emergency contact information</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

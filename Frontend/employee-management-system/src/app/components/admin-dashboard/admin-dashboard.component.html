@@ -1,0 +1,125 @@
+<div class="dashboard-container">
+  <mat-toolbar color="primary">
+    <span>Admin Dashboard</span>
+    <span class="spacer"></span>
+    <button mat-button routerLink="/admin/employees">Manage Employees</button>
+    <button mat-button (click)="logout()">Logout</button>
+  </mat-toolbar>
+
+  <div class="dashboard-content">
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading-container">
+      <mat-spinner></mat-spinner>
+      <p>Loading dashboard statistics...</p>
+    </div>
+
+    <!-- Statistics Grid -->
+    <div *ngIf="!isLoading" class="stats-section">
+      <h2>Company Overview</h2>
+      <div class="stats-grid">
+        <!-- Total Employees -->
+        <mat-card class="stat-card" routerLink="/admin/employees">
+          <mat-card-header>
+            <div class="stat-icon total-employees">
+              <mat-icon>groups</mat-icon>
+            </div>
+            <mat-card-title>Total Employees</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="stat-value">{{ stats.totalEmployees }}</div>
+            <div class="stat-subtitle">Across all departments</div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Total Departments -->
+        <mat-card class="stat-card">
+          <mat-card-header>
+            <div class="stat-icon total-departments">
+              <mat-icon>business</mat-icon>
+            </div>
+            <mat-card-title>Total Departments</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="stat-value">{{ stats.totalDepartments }}</div>
+            <div class="stat-subtitle">Active departments</div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Average Salary -->
+        <mat-card class="stat-card">
+          <mat-card-header>
+            <div class="stat-icon average-salary">
+              <mat-icon>attach_money</mat-icon>
+            </div>
+            <mat-card-title>Average Salary</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="stat-value">${{ stats.averageSalary | number }}</div>
+            <div class="stat-subtitle">Monthly average</div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Recent Hires -->
+        <mat-card class="stat-card">
+          <mat-card-header>
+            <div class="stat-icon recent-hires">
+              <mat-icon>person_add</mat-icon>
+            </div>
+            <mat-card-title>Recent Hires</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="stat-value">{{ stats.recentHires }}</div>
+            <div class="stat-subtitle">Last 30 days</div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Active Employees -->
+        <mat-card class="stat-card">
+          <mat-card-header>
+            <div class="stat-icon active-employees">
+              <mat-icon>check_circle</mat-icon>
+            </div>
+            <mat-card-title>Active Employees</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="stat-value">{{ stats.activeEmployees || stats.totalEmployees }}</div>
+            <div class="stat-subtitle">Currently working</div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Salary Range -->
+        <mat-card class="stat-card">
+          <mat-card-header>
+            <div class="stat-icon salary-range">
+              <mat-icon>trending_up</mat-icon>
+            </div>
+            <mat-card-title>Salary Range</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="stat-value">${{ stats.lowestSalary | number }} - ${{ stats.highestSalary | number }}</div>
+            <div class="stat-subtitle">Lowest to Highest</div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div *ngIf="!isLoading" class="actions-section">
+      <h2>Quick Actions</h2>
+      <div class="actions-grid">
+        <button mat-raised-button color="primary" routerLink="/admin/employees" class="action-button">
+          <mat-icon>list</mat-icon>
+          View All Employees
+        </button>
+        <button mat-raised-button color="accent" routerLink="/admin/employees/add" class="action-button">
+          <mat-icon>person_add</mat-icon>
+          Add New Employee
+        </button>
+        <button mat-raised-button color="warn" class="action-button">
+          <mat-icon>assessment</mat-icon>
+          Generate Reports
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

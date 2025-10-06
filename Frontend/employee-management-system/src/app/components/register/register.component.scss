@@ -1,0 +1,169 @@
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.register-card-wrapper {
+  width: 100%;
+  max-width: 450px;
+}
+
+.register-card {
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+mat-card-header {
+  text-align: center;
+  margin-bottom: 8px;
+  
+  .header-icon {
+    color: #667eea;
+    margin-right: 8px;
+  }
+  
+  mat-card-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  mat-card-subtitle {
+    color: #666;
+    font-size: 14px;
+  }
+}
+
+mat-card-content {
+  padding: 0 24px 16px 24px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+// Form field styling
+mat-form-field {
+  .mat-form-field-outline {
+    background: #f8f9fa;
+    border-radius: 8px;
+  }
+  
+  .mat-form-field-outline-thick {
+    color: #667eea;
+  }
+}
+
+// Error and success messages
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background: #ffebee;
+  color: #c62828;
+  border-radius: 6px;
+  margin: 16px 0;
+  font-size: 14px;
+  
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.success-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background: #e8f5e8;
+  color: #2e7d32;
+  border-radius: 6px;
+  margin: 16px 0;
+  font-size: 14px;
+  
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+// Submit button
+.submit-btn {
+  height: 48px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  margin-top: 8px;
+  position: relative;
+  
+  &:disabled {
+    background: #ccc;
+    color: #666;
+  }
+}
+
+.spinner {
+  margin-right: 8px;
+}
+
+// Login redirect
+mat-card-actions {
+  padding: 16px 24px 24px 24px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.login-redirect {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  
+  span {
+    color: #666;
+    font-size: 14px;
+  }
+  
+  button {
+    font-weight: 600;
+  }
+}
+
+// Responsive design
+@media (max-width: 480px) {
+  .register-container {
+    padding: 10px;
+    align-items: flex-start;
+    padding-top: 40px;
+  }
+  
+  .register-card-wrapper {
+    max-width: 100%;
+  }
+  
+  mat-card-content {
+    padding: 0 16px 16px 16px;
+  }
+  
+  mat-card-actions {
+    padding: 16px 16px 24px 16px;
+  }
+  
+  .login-redirect {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
